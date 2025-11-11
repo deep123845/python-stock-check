@@ -76,7 +76,8 @@ def process_sales(entries: list[str]) -> dict[month_id, sale_quantity]:
 
 	return sales
 
-def convert_to_product_history(entries: list[list[str]]) -> list[ProductHistory]:
+def convert_to_product_history(lines) -> list[ProductHistory]:
+	entries = parse_lines(list(lines))
 	product_histories: list[ProductHistory] = []
 
 	for entry in entries: 
@@ -96,13 +97,13 @@ def convert_to_product_history(entries: list[list[str]]) -> list[ProductHistory]
 
 
 with open('2025-11-10-b.Txt', 'r') as x:
-	a = convert_to_product_history(parse_lines(list(x)))
+	a = convert_to_product_history(x)
 
 with open('2025-11-10-c.Txt', 'r') as y:
-	b = convert_to_product_history(parse_lines(list(y)))
+	b = convert_to_product_history(y)
 
 with open('2025-11-10-w.Txt', 'r') as z:
-	c = convert_to_product_history(parse_lines(list(z)))
+	c = convert_to_product_history(z)
 
 d = a + b + c
 
