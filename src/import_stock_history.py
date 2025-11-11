@@ -77,7 +77,7 @@ def process_sales(entries: list[str]) -> dict[month_id, sale_quantity]:
 	return sales
 
 def convert_to_product_history(entries: list[list[str]]) -> list[ProductHistory]:
-	product_history: list[ProductHistory] = []
+	product_histories: list[ProductHistory] = []
 
 	for entry in entries: 
 		upc = entry[0]
@@ -89,9 +89,10 @@ def convert_to_product_history(entries: list[list[str]]) -> list[ProductHistory]
 		except:
 			raise Exception(f'Could not process sales data for {product_description}')
 
-		product_history.append(ProductHistory(upc, product_description, product_stock, sales))
+		product_history = ProductHistory(upc, product_description, product_stock, sales)
+		product_histories.append(product_history)
 
-	return product_history
+	return product_histories
 
 
 with open('2025-11-10-b.Txt', 'r') as x:
