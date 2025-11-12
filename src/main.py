@@ -1,5 +1,6 @@
 from import_stock_history import convert_to_product_history, ProductHistory
 from import_product_catalogue import convert_to_product_catalogue, ProuductListing
+from sales_statistics import get_latest_n_months, calculate_average_sales
 import csv
 from dataclasses import dataclass
 from typing import TypeAlias
@@ -73,5 +74,13 @@ with open('CatalogDownload_Convenience.csv') as catalogue:
 
 f = merge_history(d, e)
 
-for upc in f:
-	print(upc, f[upc])
+# for upc in f:
+# 	print(upc, f[upc])
+upc = '675325010005'
+print(f[upc].sales)
+
+months = get_latest_n_months(f[upc].sales, 3)
+salesStats = calculate_average_sales(f[upc].sales, months)
+
+print(months)
+print(salesStats)
