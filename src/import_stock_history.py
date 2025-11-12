@@ -7,7 +7,6 @@ sale_quantity: TypeAlias = int
 
 @dataclass
 class ProductHistory:
-	upc: str
 	description: str
 	stock: int
 	sales: dict[month_id, sale_quantity]
@@ -76,9 +75,9 @@ def process_sales(entries: list[str]) -> dict[month_id, sale_quantity]:
 
 	return sales
 
-def convert_to_product_history(lines) -> list[ProductHistory]:
+def convert_to_product_history(lines) -> dict[ProductHistory]:
 	entries = parse_lines(list(lines))
-	product_histories: list[ProductHistory] = []
+	product_histories = {}
 
 	for entry in entries: 
 		upc = entry[0]
@@ -90,8 +89,8 @@ def convert_to_product_history(lines) -> list[ProductHistory]:
 		except:
 			raise Exception(f'Could not process sales data for {product_description}')
 
-		product_history = ProductHistory(upc, product_description, product_stock, sales)
-		product_histories.append(product_history)
+		product_history = ProductHistory(product_description, product_stock, sales)
+		product_histories[upc] = product_history
 
 	return product_histories
 
@@ -105,7 +104,16 @@ with open('2025-11-10-c.Txt', 'r') as y:
 with open('2025-11-10-w.Txt', 'r') as z:
 	c = convert_to_product_history(z)
 
-d = a + b + c
+d = {}
+
+for a1 in a:
+	d[a1] = a[a1]
+
+for b1 in b:
+	d[b1] = b[b1]
+
+for c1 in c:
+	d[c1] = c[c1]
 
 for e in d:
-	print(f'{e}')
+	print(e, d[e])
