@@ -30,10 +30,3 @@ def convert_to_product_catalogue(reader) -> dict[str, ProuductListing]:
 		product_catalogue[listing[0]] = listing[1]
 	
 	return product_catalogue
-
-with open('CatalogDownload_Convenience.csv') as catalogue:
-	reader = csv.DictReader(catalogue, dialect='excel')
-	product_catalogue = convert_to_product_catalogue(reader)
-
-for listing in product_catalogue:
-	print(listing, product_catalogue[listing])
